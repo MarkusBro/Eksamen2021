@@ -12,7 +12,6 @@ public class WeightedGraph {
 
     private final static WeightedGraph theInstance = new WeightedGraph(true);
 
-    private HashMap<Airport, LinkedList<Airport>> adjacencyMap;
     private Set<Airport> airports;
     private boolean directed;
 
@@ -20,6 +19,13 @@ public class WeightedGraph {
         return theInstance;
     }
 
+    public Set<Airport> getAirports() {
+        return airports;
+    }
+
+    public void setAirports(Set<Airport> airports) {
+        this.airports = airports;
+    }
 
     public WeightedGraph(boolean directed) {
         this.directed = directed;

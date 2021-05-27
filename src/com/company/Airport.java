@@ -15,7 +15,7 @@ public class Airport {
         visited = false;
         flights = new LinkedList<>();
     }
-    private boolean isVisited(){
+    public boolean isVisited(){
         return visited;
     }
     public void visit(){
