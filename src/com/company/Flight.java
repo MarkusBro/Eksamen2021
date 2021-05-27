@@ -1,9 +1,6 @@
 package com.company;
 
-import com.company.Graph.Graph;
-import com.company.Graph.Vertex;
-
-import java.util.HashMap;
+import java.util.Set;
 
 public class Flight {
     // field and method declarations problem 1b
@@ -13,16 +10,14 @@ public class Flight {
     private Integer price;
     private Integer departureTime;
     private Integer arrivalTime;
+    private Set<Flight> nextFlight;
 
 
-    Graph graph = new Graph();
+    //Graph graph = new Graph();
 
 
-    public Flight(){
-        airPorts.put("Kjevik", "Sola");
-        airPorts.put("Sola", "Værnes");
-        airPorts.put("Kjevik", "Gardemoen");
-        airPorts.put("Gardemoen", "Værnes");
+    public Flight() {
+
     }
 
     public Flight(Integer number, String fromAirport, String toAirport, Integer price, Integer departureTime, Integer arrivalTime) {
@@ -33,6 +28,11 @@ public class Flight {
         this.departureTime = departureTime;
         this.arrivalTime = arrivalTime;
     }
+
+    public Set<Flight> getNextFlight(){
+        return nextFlight;
+    }
+
     // you may find these useful:
     // return the duration of the flight (time in the air)
     public int getDuration() {
