@@ -32,6 +32,7 @@ public class FlightSim {
     }
 
     public void newGraph() {
+        LowCostBooker lowCostBooker = new LowCostBooker();
         WeightedGraph weightedGraph = new WeightedGraph(true);
         Airport Kjevik = new Airport(0, "Kjevik");
         Airport Sola = new Airport(1, "Sola");
@@ -44,6 +45,8 @@ public class FlightSim {
         weightedGraph.addEdge(Gardemoen, Værnes, 300);
 
         weightedGraph.printEdges();
+
+        lowCostBooker.bookFlightsLowCost(Kjevik, Værnes);
     }
 
     /*public void addEdges(){
