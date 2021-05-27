@@ -1,9 +1,5 @@
 package com.company;
 
-import com.company.Graph.WeightedGraph;
-
-import java.util.Set;
-
 public class Flight implements Comparable<Flight> {
     // field and method declarations problem 1b
     Airport source;
@@ -16,23 +12,22 @@ public class Flight implements Comparable<Flight> {
     private int arrivalTime;
 
 
-
-
     public Flight(Airport s, Airport d, double p) {
-        source =  s;
+        source = s;
         destination = d;
         price = p;
     }
-    public String toSting(){
+
+    public String toSting() {
         return String.format("(%s -> %s, %f", source.getName(), destination.getName(), price);
     }
 
-    public int compareTo(Flight otherFlight){
-        if (this.price > otherFlight.price){
+    public int compareTo(Flight otherFlight) {
+        if (this.price > otherFlight.price) {
             return 1;
-        }
-        else  return -1;
+        } else return -1;
     }
+
     public Flight(Integer number, String fromAirport, String toAirport, int price, int departureTime, int arrivalTime) {
         this.number = number;
         this.fromAirport = fromAirport;
@@ -67,7 +62,6 @@ public class Flight implements Comparable<Flight> {
     }
 // you may find these useful:
     // return the duration of the flight (time in the air)
-
 
 
     public int getDuration(int arrivalTime, int departureTime) {

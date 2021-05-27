@@ -45,27 +45,41 @@ public class WeightedGraph {
         if (!directed && source != destination) {
             addEdgeHelper(source, destination, price);
         }
-        
+
     }
 
     public void printEdges() {
-        for (Airport airport : adjacencyMap.keySet()) {
-            System.out.println(airport.getName() + " har fly til: ");
-            if (adjacencyMap.get(airport) != null) {
-                for (Airport neighbor : adjacencyMap.get(airport)) {
-                    System.out.println(neighbor.getName() + "");
-                }
-                System.out.println();
-            } else {
-                System.out.println("None");
+        for (Airport airport : airports) {
+            LinkedList<Flight> flights = airport.getFlights();
+
+            if (flights.isEmpty()) {
+                System.out.println("Flyplass " + airport.getName() + " har ingen avganger");
+                continue;
             }
+            System.out.println("Flyplass " + airport.getName() + " har fly til ");
+            for (Flight flight : flights) {
+                System.out.println(flight.getDestination().getName() + " pris " + flight.getPrice());
+            }
+            System.out.println();
         }
     }
 
     public boolean hasEdge(Airport source, Airport destination) {
-        return adjacencyMap.containsKey(source) && adjacencyMap.get(source) != null
-                && adjacencyMap.get(source).contains(destination);
+        LinkedList<Flight> flights = source.getFlights();
+        for (Flight flight : flights) {
+            if (flight.getDestination() == destination){
+                return true;
+            }
+        }
+        return false;
     }
 
-
+    public void resetAirportVisited(){
+        for (Airport airport: airports){
+            airport.unvisit();
+        }
+    }
 }
+
+
+
