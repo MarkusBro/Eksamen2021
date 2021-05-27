@@ -1,23 +1,41 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class Airport {
+    int n;
     private String name;
-    private ArrayList<Flight> flights;
+    private boolean visited;
+    private LinkedList<Flight> flights;
 
+    public Airport(int n, String name) {
+        this.n = n;
+        this.name = name;
+        visited = false;
+        flights = new LinkedList<>();
+    }
+    private boolean isVisited(){
+        return visited;
+    }
+    public void visit(){
+        visited = true;
+    }
+    public void unvisit(){
+        visited = false;
+    }
 
-    public Airport(String name, ArrayList<Flight> flights) {
+    public Airport(String name, LinkedList<Flight> flights) {
         this.name = name;
         this.flights = flights;
     }
 
-    public ArrayList<Flight> getFlights() {
-        return flights;
+    public int getN() {
+        return n;
     }
 
-    public void setFlights(ArrayList<Flight> flights) {
-        this.flights = flights;
+    public void setN(int n) {
+        this.n = n;
     }
 
     public String getName() {
@@ -26,5 +44,13 @@ public class Airport {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public LinkedList<Flight> getFlights() {
+        return flights;
+    }
+
+    public void setFlights(LinkedList<Flight> flights) {
+        this.flights = flights;
     }
 }

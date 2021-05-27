@@ -1,46 +1,71 @@
 package com.company.Graph;
 
+import com.company.Airport;
+import com.company.Flight;
+
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Set;
 
 public class WeightedGraph {
 
-    public static class Edge {
+    private final static WeightedGraph theInstance = new WeightedGraph(true);
 
-        int source;
-        int destination;
-        int weight;
+    private HashMap<Airport, LinkedList<Airport>> adjacencyMap;
+    private Set<Airport> airports;
+    private boolean directed;
 
-        public Edge(int source, int destination, int weight) {
-            this.source = source;
-            this.destination = destination;
-            this.weight = weight;
-        }
+    public static WeightedGraph getInstance() {
+        return theInstance;
     }
-    public static class Graph{
-        int vertices;
-        LinkedList<Edge> [] adjecencyList;
 
-        public Graph(int vertices){
-            this.vertices = vertices;
-            adjecencyList = new LinkedList[vertices];
 
-            for (int i = 0; i < vertices; i++) {
-                adjecencyList[i] = new LinkedList<>();
+    public WeightedGraph(boolean directed) {
+        this.directed = directed;
+        airports = new HashSet<>();
+    }
+
+    public void addEdgeHelper(Airport a, Airport b, double price) {
+        for (Flight flight : a.getFlights()) {
+            if (flight.getSource() == a && flight.getDestination() == b) {
+                flight.setPrice(price);
+                return;
             }
         }
-        public void addEdge(int source, int destination, int weight){
-            Edge edge = new Edge(source,destination,weight);
-            adjecencyList[source].addFirst(edge);
-        }
+        a.getFlights().add(new Flight(a, b, price));
+    }
 
-        public void printGraph(){
-            for (int i = 0; i < vertices ; i++) {
-                LinkedList<Edge> list = adjecencyList[i];
-                for (int j = 0; j < list.size() ; j++) {
-                    System.out.println("vertex- " + i + " is connected to " +
-                            list.get(j).destination + " wigth " + list.get(j).weight);
+    public void addEdge(Airport source, Airport destination, double price) {
+        airports.add(source);
+        airports.add(destination);
+
+        addEdgeHelper(source, destination, price);
+
+        if (!directed && source != destination) {
+            addEdgeHelper(source, destination, price);
+        }
+        
+    }
+
+    public void printEdges() {
+        for (Airport airport : adjacencyMap.keySet()) {
+            System.out.println(airport.getName() + " har fly til: ");
+            if (adjacencyMap.get(airport) != null) {
+                for (Airport neighbor : adjacencyMap.get(airport)) {
+                    System.out.println(neighbor.getName() + "");
                 }
+                System.out.println();
+            } else {
+                System.out.println("None");
             }
         }
     }
+
+    public boolean hasEdge(Airport source, Airport destination) {
+        return adjacencyMap.containsKey(source) && adjacencyMap.get(source) != null
+                && adjacencyMap.get(source).contains(destination);
+    }
+
+
 }

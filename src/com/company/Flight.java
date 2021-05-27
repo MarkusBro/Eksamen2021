@@ -1,26 +1,39 @@
 package com.company;
 
+import com.company.Graph.WeightedGraph;
+
 import java.util.Set;
 
-public class Flight {
+public class Flight implements Comparable<Flight> {
     // field and method declarations problem 1b
+    Airport source;
+    Airport destination;
     private Integer number;
     private String fromAirport;
     private String toAirport;
-    private Integer price;
-    private Integer departureTime;
-    private Integer arrivalTime;
-    private Set<Flight> nextFlight;
+    private double price;
+    private int departureTime;
+    private int arrivalTime;
 
 
-    //Graph graph = new Graph();
 
 
-    public Flight() {
-
+    public Flight(Airport s, Airport d, double p) {
+        source =  s;
+        destination = d;
+        price = p;
+    }
+    public String toSting(){
+        return String.format("(%s -> %s, %f", source.getName(), destination.getName(), price);
     }
 
-    public Flight(Integer number, String fromAirport, String toAirport, Integer price, Integer departureTime, Integer arrivalTime) {
+    public int compareTo(Flight otherFlight){
+        if (this.price > otherFlight.price){
+            return 1;
+        }
+        else  return -1;
+    }
+    public Flight(Integer number, String fromAirport, String toAirport, int price, int departureTime, int arrivalTime) {
         this.number = number;
         this.fromAirport = fromAirport;
         this.toAirport = toAirport;
@@ -29,13 +42,35 @@ public class Flight {
         this.arrivalTime = arrivalTime;
     }
 
-    public Set<Flight> getNextFlight(){
-        return nextFlight;
+    public Airport getSource() {
+        return source;
     }
 
-    // you may find these useful:
+    public void setSource(Airport source) {
+        this.source = source;
+    }
+
+    public Airport getDestination() {
+        return destination;
+    }
+
+    public void setDestination(Airport destination) {
+        this.destination = destination;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+// you may find these useful:
     // return the duration of the flight (time in the air)
-    public int getDuration() {
+
+
+
+    public int getDuration(int arrivalTime, int departureTime) {
 
         return arrivalTime - departureTime;
     }
